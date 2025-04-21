@@ -7,7 +7,7 @@
 
 ## 📖 Overview
 
-`minitalk` is a 42 Common Core project that teaches you how to communicate between processes on a UNIX/Linux system **without** sockets or shared memory—only **signals**.
+`minitalk` is a 42‑Piscine project that teaches you how to communicate between processes on a UNIX/Linux system **without** sockets or shared memory—only **signals**.
 
 - The **server** waits for signals, reconstructs bits into characters, and prints messages.
 - The **client** takes a server PID and a text string, then sends each character **bit by bit** using `signal()`.
@@ -96,36 +96,79 @@ make bonus
 
 ---
 
-## 🚀 Usage Examples
+## 🚀 How to use ?
 
-### Run the server
-```bash
-./server
-```
-Output:
-```
-Server PID: 27341
-```
+Follow these detailed steps to set up, compile, and run the `minitalk_42` project—even if you have no prior experience:
 
-### Run the client
-```bash
-./client 27341 "Hello, 42!"
-```
-Server prints:
-```
-Hello, 42!
-```
+1. **Clone the repository**
+   ```bash
+   # Replace <your-path> with the folder where you want the project
+   git clone https://github.com/cetinss/minitalk_42.git <your-path>/minitalk_42
+   ```
 
-### Bonus: Unicode Example
-```bash
-make bonus
-./server_bonus
-./client_bonus 27341 "Merhaba Dünya 🌍"
-```
-Output:
-```
-Merhaba Dünya 🌍
-```
+2. **Change into the project directory**
+   ```bash
+   cd <your-path>/minitalk_42
+   ```
+
+3. **Compile the programs**
+   - **Standard version (ASCII only):**
+     ```bash
+     make
+     ```
+     This creates two executables: `server` and `client`.
+
+   - **Unicode version (UTF‑8 support):**
+     ```bash
+     make bonus
+     ```
+     This creates `server_bonus` and `client_bonus`.
+
+4. **Prepare two terminal windows**
+   - **Terminal 1:** for running the server.
+   - **Terminal 2:** for running the client.
+
+5. **Start the server**
+   In Terminal 1, type:
+   ```bash
+   ./server
+   ```
+   - The server will output its **Process ID (PID)**, for example:
+     ```
+     Server PID: 27341
+     ```
+   - **Note:** Keep this terminal open; it will display incoming messages.
+
+6. **Send a message from the client**
+   In Terminal 2, type (replace `27341` with the PID printed above):
+   ```bash
+   ./client 27341 "Hello, 42!"
+   ```
+
+   - The client sends each character to the server bit by bit.
+   - Back in Terminal 1, you will see the server print your message:
+     ```
+     Hello, 42!
+     ```
+
+7. **Using the Unicode (bonus) version**
+   If you compiled with `make bonus`, use these commands instead:
+   - **Start Unicode server** (Terminal 1):
+     ```bash
+     ./server_bonus
+     ```
+   - **Send Unicode message** (Terminal 2):
+     ```bash
+     ./client_bonus 27341 "Merhaba Dünya 🌍"
+     ```
+   - Terminal 1 will display:
+     ```
+     Merhaba Dünya 🌍
+     ```
+
+8. **Troubleshooting**
+   - If you see no output, verify that the **PID** is correct and that the server is still running.
+   - If messages appear garbled, increase the `usleep()` delay in `client.c` to give the server more time to process signals.
 
 ---
 
